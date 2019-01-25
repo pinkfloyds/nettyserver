@@ -2,8 +2,6 @@ package com.mko.nettyserver.client
 
 import com.mko.nettyserver.codec.MySpliter
 import com.mko.nettyserver.codec.PacketCodecHandler
-import com.mko.nettyserver.codec.Spliter
-import com.mko.nettyserver.handler.IMIdleStateHandler
 import com.mko.nettyserver.handler.LifeCyCleTestHandler
 import io.netty.bootstrap.Bootstrap
 import io.netty.channel.ChannelInitializer
@@ -12,7 +10,7 @@ import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioSocketChannel
 import java.time.LocalDateTime
-import java.util.Date
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -33,8 +31,8 @@ object NettyClient {
                     .option(ChannelOption.TCP_NODELAY, true)
                     .handler(object : ChannelInitializer<SocketChannel>() {
                         override fun initChannel(ch: SocketChannel) {
-//                            ch.pipeline().addLast(IMIdleStateHandler())
-                            ch.pipeline().addLast(LifeCyCleTestHandler()) // 服务端空闲检测
+//                            ch.pipeline().addLast(IMIdleStateHandler()) // 服务端空闲检测
+                            ch.pipeline().addLast(LifeCyCleTestHandler())
                             ch.pipeline().addLast(MySpliter()) // 过滤消息包,同时解决粘包拆包
                             ch.pipeline().addLast(PacketCodecHandler) // 解码
                             ch.pipeline().addLast(HeartBeatTimerHandler)

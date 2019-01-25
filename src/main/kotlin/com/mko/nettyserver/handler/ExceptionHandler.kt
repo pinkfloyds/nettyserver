@@ -13,8 +13,8 @@ private class ExceptionHandler : ChannelInboundHandlerAdapter() {
     override fun channelRegistered(ctx: ChannelHandlerContext) {
         ctx.executor().schedule<ChannelHandlerContext>(
                 { ctx.fireExceptionCaught(TimeoutException()) }, timeoutSeconds.toLong(), TimeUnit.SECONDS)
-                .addListener {  }
-                .addListener {  }
+                .addListener { }
+                .addListener { }
         super.channelRegistered(ctx)
     }
 }
